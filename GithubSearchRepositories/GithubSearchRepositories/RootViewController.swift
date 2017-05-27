@@ -19,9 +19,14 @@ class RootViewController: UIViewController {
         super.viewDidLoad()
         
         let navigationVC = NavigationViewController(rootViewController: SearchRepositoriesViewController())
-        self.addChildViewController(navigationVC)
+        self.addChildVC(childVC: navigationVC)
     }
-
+    
+    func addChildVC(childVC: UIViewController) -> Void {
+        self.addChildViewController(childVC)
+        view.addSubview(childVC.view)
+        childVC.didMove(toParentViewController: self)
+    }
 
 }
 
