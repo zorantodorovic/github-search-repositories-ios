@@ -1,0 +1,18 @@
+PODS:
+  - Kingfisher (3.6.1)
+  - PureLayout (3.0.2)
+  - SwiftyJSON (3.1.4)
+
+DEPENDENCIES:
+  - Kingfisher (~> 3.0)
+  - PureLayout
+  - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Kingfisher: 2f31cb75f3e98d3d4c406cbdcd9b263e956cfa67
+  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+
+PODFILE CHECKSUM: 28f3ea9619eea6093ae6fff3b9fbcea9596c2498
+
+COCOAPODS: 1.1.1
