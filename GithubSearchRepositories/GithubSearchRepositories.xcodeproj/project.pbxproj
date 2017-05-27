@@ -78,14 +78,54 @@
 		EB65EEF11ED9BC5C00B59384 /* GithubSearchRepositories */ = {
 			isa = PBXGroup;
 			children = (
-				EB65EEF21ED9BC5C00B59384 /* AppDelegate.swift */,
+				EB9CB7041ED9C13200E6BF72 /* Application */,
+				EB9CB7051ED9C14C00E6BF72 /* Resources */,
+				EB9CB7061ED9C17700E6BF72 /* Models */,
+				EB9CB7081ED9C18200E6BF72 /* ViewModels */,
+				EB9CB7071ED9C17D00E6BF72 /* Views */,
 				EB65EEF41ED9BC5C00B59384 /* ViewController.swift */,
+			);
+			path = GithubSearchRepositories;
+			sourceTree = "<group>";
+		};
+		EB9CB7041ED9C13200E6BF72 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				EB65EEF21ED9BC5C00B59384 /* AppDelegate.swift */,
 				EB65EEF61ED9BC5C00B59384 /* Main.storyboard */,
-				EB65EEF91ED9BC5C00B59384 /* Assets.xcassets */,
 				EB65EEFB1ED9BC5C00B59384 /* LaunchScreen.storyboard */,
 				EB65EEFE1ED9BC5C00B59384 /* Info.plist */,
 			);
-			path = GithubSearchRepositories;
+			name = Application;
+			sourceTree = "<group>";
+		};
+		EB9CB7051ED9C14C00E6BF72 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EB65EEF91ED9BC5C00B59384 /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		EB9CB7061ED9C17700E6BF72 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		EB9CB7071ED9C17D00E6BF72 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		EB9CB7081ED9C18200E6BF72 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,6 +419,7 @@
 				EB65EF031ED9BC5C00B59384 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
