@@ -3,6 +3,7 @@ swift_version = '3.0'
 use_frameworks!
 
 target 'GithubSearchRepositories' do
+    pod 'Alamofire', '~> 4.4'
     pod 'Kingfisher', '~> 3.0'
     pod 'PureLayout'
     pod 'SwiftyJSON'
