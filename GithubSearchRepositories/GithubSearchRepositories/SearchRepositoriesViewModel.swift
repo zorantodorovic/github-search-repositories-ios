@@ -8,13 +8,103 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
+
+protocol SearchRepositoriesViewModelDelegate: class {
+    func didFetchRepositories(repositories: [Repository]) -> Void
+    func repositoryFetchFailed() -> Void
+}
 
 class SearchRepositoriesViewModel {
     
-    func fetchRepositories() -> [Repository] {
-        let repositoriesArray = [Repository]()
+    private let url = URL(string: "https://api.github.com/search/repositories")
+    
+    var page: Int = 0
+    var query: String? = ""
+    var sort: String? = ""
+    var order: String? = ""
+    var perPage: Int? = 2
+    
+    weak var delegate: SearchRepositoriesViewModelDelegate?
+    
+    
+    func searchQuery(query: String? = "") -> Void {
         
-        return repositoriesArray
+        guard let que = query else {
+            return
+        }
+        self.query = que
+        
+        self.fetchData()
     }
     
+    func order(order: String? = "") -> Void {
+        
+        guard let ord = order else {
+            return
+        }
+        
+        self.order = ord
+    }
+    
+    func sort(sortOption: String? = "") -> Void {
+        
+        guard let option = sortOption else {
+            return
+        }
+        
+        self.sort = option
+    }
+    
+    private func getSearchParameters() -> [String: Any] {
+        return [
+            "per_page" : self.perPage!,
+            "q" : self.query!,
+            "page" : self.page,
+            "sort" : self.sort!,
+            "order" : self.order!
+        ]
+    }
+    
+    private func fetchData() -> Void {
+        
+        let searchParameters = self.getSearchParameters()
+        Alamofire.request(url!, parameters: searchParameters).responseJSON { response in
+            switch response.result {
+            case .success:
+                if response.result.value != nil {
+                    let swiftyJSON = JSON(response.result.value!)
+                    let reposArray = self.mapJSONToModel(json: swiftyJSON["items"])
+                    self.delegate?.didFetchRepositories(repositories: reposArray)
+                }
+                break
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.delegate?.repositoryFetchFailed()
+            }
+        }
+    }
+    
+    private func mapJSONToModel(json: JSON) -> [Repository] {
+        let repositoriesArray = [Repository]()
+        
+        for (_, subJSON) in json {
+            do {
+                let repo = try Repository(json: subJSON)
+                print("_----------------")
+                dump(subJSON)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        return repositoriesArray
+        
+    }
+    
+    
 }
+
+
+
+

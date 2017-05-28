@@ -10,5 +10,6 @@ import Foundation
 
 struct Constants {
     
+    static let searchScreenNavBarTitle = "Search repositories"
     static let searchBarPlaceholder = "Search"
 }
