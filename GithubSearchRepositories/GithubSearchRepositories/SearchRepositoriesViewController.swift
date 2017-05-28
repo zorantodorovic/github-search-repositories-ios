@@ -19,7 +19,7 @@ class SearchRepositoriesViewController: UIViewController {
     fileprivate let viewModel = SearchRepositoriesViewModel()
     
     fileprivate var searchQuery: String?
-    var data = ["Lala", "Lolo", "Lila"]
+    var repositoriesArray = [Repository]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +49,9 @@ class SearchRepositoriesViewController: UIViewController {
         tableView.autoPinEdge(.top, to: .bottom, of: searchBar)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(RepositoryTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.estimatedRowHeight = 90
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.keyboardDismissMode = .onDrag
     }
     
@@ -58,6 +60,7 @@ class SearchRepositoriesViewController: UIViewController {
 extension SearchRepositoriesViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.tableView.setContentOffset(CGPoint.zero, animated: false)
         self.searchQuery = searchText
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(getRepositories), object: nil)
         self.perform(#selector(getRepositories), with: nil, afterDelay: 0.5)
@@ -68,6 +71,7 @@ extension SearchRepositoriesViewController: UISearchBarDelegate {
             self.viewModel.searchQuery(query: self.searchQuery)
         }
     }
+    
 }
 
 extension SearchRepositoriesViewController: UITableViewDataSource, UITableViewDelegate {
@@ -77,14 +81,20 @@ extension SearchRepositoriesViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return repositoriesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        cell.textLabel?.text = data[indexPath.row]
-        cell.textLabel?.textColor = UIColor.black
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RepositoryTableViewCell
+        cell.bindModelToCell(repository: self.repositoriesArray[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedRepository = self.repositoriesArray[indexPath.row]
+        let detailsVC = RepositoryDetailsViewController()
+        detailsVC.repository = selectedRepository
+        self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     
 }
@@ -92,7 +102,8 @@ extension SearchRepositoriesViewController: UITableViewDataSource, UITableViewDe
 extension SearchRepositoriesViewController: SearchRepositoriesViewModelDelegate {
     
     func didFetchRepositories(repositories: [Repository]) {
-        print("did get in VC")
+        self.repositoriesArray = repositories
+        self.tableView.reloadData()
     }
     
     func repositoryFetchFailed() {
