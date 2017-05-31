@@ -18,7 +18,9 @@ class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let navigationVC = NavigationViewController(rootViewController: SearchRepositoriesViewController())
+        let searchRepositoriesVM = SearchRepositoriesViewModel()
+        let searchRepositoriesVC = SearchRepositoriesViewController(viewModel: searchRepositoriesVM)
+        let navigationVC = NavigationViewController(rootViewController: searchRepositoriesVC)
         self.addChildVC(childVC: navigationVC)
     }
     

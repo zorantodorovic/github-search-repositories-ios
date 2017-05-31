@@ -16,6 +16,7 @@ class RepositoryDetailsViewModel {
     var ownerName: String
     var repoName: String
     var createdDateString: String
+    var ownerType: String
     
     var userImageString: String?
     var repoDesc: String?
@@ -28,9 +29,10 @@ class RepositoryDetailsViewModel {
     init(repository: Repository) {
         self.repository = repository
         
-        self.ownerName = repository.owner.userName
+        self.ownerName = "Owner: \(repository.owner.userName)"
         self.repoName = repository.repositoryDetails.name
         self.createdDateString = repository.repositoryDetails.createdDateString
+        self.ownerType = "Owner type: \(repository.owner.type)"
         
         self.userImageString = repository.owner.avatarURLString ?? ""
         self.repoDesc = repository.repositoryDetails.description ?? ""

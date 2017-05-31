@@ -13,6 +13,7 @@ class RepositoryDetailsViewController: UIViewController {
     let stackView = UIStackView()
     let userImageView = UIImageView()
     let ownerNameLabel = UILabel()
+    let ownerTypeLabel = UILabel()
     let repoNameLabel = UILabel()
     let descLabel = UILabel()
     let statsLabel = UILabel()
@@ -53,13 +54,18 @@ class RepositoryDetailsViewController: UIViewController {
         ownerNameLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 115)
         ownerNameLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 15)
         
+        view.addSubview(ownerTypeLabel)
+        ownerTypeLabel.autoPinEdge(.left, to: .right, of: ownerNameLabel, withOffset: 15)
+        ownerTypeLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 5)
+        ownerTypeLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 15)
+        
         view.addSubview(stackView)
         stackView.autoPinEdgesToSuperviewEdges(with: UIEdgeInsetsMake(0, 15, 15, 15), excludingEdge: .top)
         stackView.autoPinEdge(.top, to: .bottom, of: userImageView, withOffset: 10)
         stackView.alignment = .leading
         stackView.spacing = 10
         stackView.axis = .vertical
-        stackView.distribution = .fill
+        stackView.distribution = .fillProportionally
         
         stackView.addArrangedSubview(repoNameLabel)
         stackView.addArrangedSubview(languageLabel)
@@ -82,6 +88,7 @@ class RepositoryDetailsViewController: UIViewController {
     func bindDataToView() {
         userImageView.image = viewModel.getUserImage()
         ownerNameLabel.text = viewModel.ownerName
+        ownerTypeLabel.text = viewModel.ownerType
         repoNameLabel.text = viewModel.repoName
         languageLabel.text = viewModel.language
         descLabel.text = viewModel.repoDesc
@@ -103,3 +110,6 @@ class RepositoryDetailsViewController: UIViewController {
     }
     
 }
+
+
+

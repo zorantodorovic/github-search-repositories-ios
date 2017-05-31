@@ -16,10 +16,19 @@ class SearchRepositoriesViewController: UIViewController {
     
     let cellId = "cellId"
     
-    fileprivate let viewModel = SearchRepositoriesViewModel()
-    
     fileprivate var searchQuery: String?
     var repositoriesArray = [Repository]()
+    
+    fileprivate var viewModel: SearchRepositoriesViewModel
+    
+    init(viewModel: SearchRepositoriesViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

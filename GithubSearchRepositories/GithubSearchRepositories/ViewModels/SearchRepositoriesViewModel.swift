@@ -17,6 +17,8 @@ protocol SearchRepositoriesViewModelDelegate: class {
 
 class SearchRepositoriesViewModel {
     
+    var repositoriesArray = [Repository]()
+    
     private let urlString = "https://api.github.com/search/repositories"
     
     var page: Int = 0
@@ -54,6 +56,10 @@ class SearchRepositoriesViewModel {
         }
         
         self.sort = option
+    }
+    
+    func loadMoreData() -> Void {
+        
     }
     
     private func getSearchParameters() -> [String: Any] {
