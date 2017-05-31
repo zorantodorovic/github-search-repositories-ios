@@ -43,8 +43,8 @@
 		EB9B5DB21EDB7B050047F868 /* RepositoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryViewController.swift; sourceTree = "<group>"; };
 		EBB374311EDED26200BF05AD /* RepositoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryViewModel.swift; sourceTree = "<group>"; };
 		EBB374331EDEE5E700BF05AD /* RepositoryDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryDetails.swift; sourceTree = "<group>"; };
-		EBB374351EDEFED000BF05AD /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Extension.swift"; path = "GithubSearchRepositories/Models/String+Extension.swift"; sourceTree = SOURCE_ROOT; };
-		EBB3743D1EDF55C300BF05AD /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Extension.swift"; path = "GithubSearchRepositories/Views/UIViewController+Extension.swift"; sourceTree = SOURCE_ROOT; };
+		EBB374351EDEFED000BF05AD /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Extension.swift"; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		EBB3743D1EDF55C300BF05AD /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Extension.swift"; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		EBB708B31ED9CE11003E393B /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		EBB708B51ED9CE48003E393B /* SearchRepositoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchRepositoriesViewController.swift; sourceTree = "<group>"; };
 		F5973175F50B7CBC209857D9 /* Pods-GithubSearchRepositories.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubSearchRepositories.release.xcconfig"; path = "Pods/Target Support Files/Pods-GithubSearchRepositories/Pods-GithubSearchRepositories.release.xcconfig"; sourceTree = "<group>"; };
@@ -151,8 +151,8 @@
 		EB9CB7061ED9C17700E6BF72 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				EB9B5DAB1EDB27AA0047F868 /* Repository.swift */,
 				EB9B5DB01EDB727B0047F868 /* Owner.swift */,
+				EB9B5DAB1EDB27AA0047F868 /* Repository.swift */,
 				EBB374331EDEE5E700BF05AD /* RepositoryDetails.swift */,
 			);
 			path = Models;
@@ -162,8 +162,8 @@
 			isa = PBXGroup;
 			children = (
 				EB9B5DAD1EDB5E7A0047F868 /* Cells */,
-				EBB708B51ED9CE48003E393B /* SearchRepositoriesViewController.swift */,
 				EB9B5DB21EDB7B050047F868 /* RepositoryViewController.swift */,
+				EBB708B51ED9CE48003E393B /* SearchRepositoriesViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,8 +171,8 @@
 		EB9CB7081ED9C18200E6BF72 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				EB9B5DA91EDB27580047F868 /* SearchRepositoriesViewModel.swift */,
 				EBB374311EDED26200BF05AD /* RepositoryViewModel.swift */,
+				EB9B5DA91EDB27580047F868 /* SearchRepositoriesViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";

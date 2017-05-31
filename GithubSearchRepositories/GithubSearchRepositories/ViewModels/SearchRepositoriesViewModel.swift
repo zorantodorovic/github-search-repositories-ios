@@ -109,7 +109,6 @@ class SearchRepositoriesViewModel {
     
     private func fetchData() -> Void {
         let searchParameters = self.getSearchParametersAsDictionary()
-        dump(searchParameters)
         Alamofire.request(urlString, parameters: searchParameters).responseJSON { [weak self] (response) in
             switch response.result {
             case .success:
