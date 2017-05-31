@@ -30,15 +30,13 @@ class SearchRepositoriesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.setAllViews()
         viewModel.delegate = self
         searchBar.delegate = self
+        self.setAllViews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         if viewModel.repositoriesArray.count == 0 {
             tableView.tableFooterView?.isHidden = true
         }
@@ -54,7 +52,7 @@ class SearchRepositoriesViewController: UIViewController {
     
     private func setupNavBar() {
         navigationItem.title = Constants.searchScreenNavBarTitle
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: nil, action: nil)
+        let button = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(self.openActionSheet))
         self.navigationItem.setRightBarButton(button, animated: false)
     }
     
@@ -78,13 +76,17 @@ class SearchRepositoriesViewController: UIViewController {
         tableView.keyboardDismissMode = .onDrag
     }
     
-    func setupTableFooterView() {
+    fileprivate func setupTableFooterView() {
         let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activity.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 44)
         activity.startAnimating()
         activity.hidesWhenStopped = true
         self.tableView.tableFooterView = activity
         self.tableView.tableFooterView?.isHidden = true
+    }
+    
+    @objc fileprivate func openActionSheet() {
+        self.showActionSheet(viewModel: viewModel)
     }
     
 }
@@ -122,13 +124,6 @@ extension SearchRepositoriesViewController: UITableViewDataSource, UITableViewDe
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedRepository = self.viewModel.repositoriesArray[indexPath.row]
-        let repositoryVM = RepositoryViewModel(repository: selectedRepository)
-        let repositoryVC = RepositoryViewController(viewModel: repositoryVM)
-        self.navigationController?.pushViewController(repositoryVC, animated: true)
-    }
-    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
@@ -143,6 +138,13 @@ extension SearchRepositoriesViewController: UITableViewDataSource, UITableViewDe
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedRepository = self.viewModel.repositoriesArray[indexPath.row]
+        let repositoryVM = RepositoryViewModel(repository: selectedRepository)
+        let repositoryVC = RepositoryViewController(viewModel: repositoryVM)
+        self.navigationController?.pushViewController(repositoryVC, animated: true)
+    }
+    
 }
 
 extension SearchRepositoriesViewController: SearchRepositoriesViewModelDelegate {
@@ -151,8 +153,12 @@ extension SearchRepositoriesViewController: SearchRepositoriesViewModelDelegate 
         self.tableView.reloadData()
     }
     
+    func didSortRepositories() {
+        self.tableView.reloadData()
+    }
+    
     func repositoryFetchFailed() {
-        // #TODO handle failure => present UIAlertViewController
+        // #TODO handle failure => present UIAlertViewController with error message
     }
     
 }

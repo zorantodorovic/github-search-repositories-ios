@@ -10,17 +10,47 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-protocol SearchRepositoriesViewModelDelegate: class {
-    func didFetchRepositories() -> Void
-    func repositoryFetchFailed() -> Void
+enum SortOptions {
+    case starsASC
+    case starsDESC
+    case forksASC
+    case forksDESC
+    case updatedASC
+    case updatedDESC
+    
+    func getSortString() -> String {
+        switch self {
+        case .starsASC, .starsDESC:
+            return "stars"
+        case .forksASC, .forksDESC:
+            return "forks"
+        case .updatedASC, .updatedDESC:
+            return "updated"
+        }
+    }
+    
+    func getOrderString() -> String {
+        switch self {
+        case .starsASC, .forksASC, .updatedASC:
+            return "asc"
+        case .starsDESC, .forksDESC, .updatedDESC:
+            return "desc"
+        }
+    }
 }
 
 fileprivate struct SearchParametes {
-    var page: Int = 0
+    var page: Int = 1
     var perPage: Int = 30
     var query: String? = ""
     var sort: String? = ""
     var order: String? = ""
+}
+
+protocol SearchRepositoriesViewModelDelegate: class {
+    func didFetchRepositories() -> Void
+    func repositoryFetchFailed() -> Void
+    func didSortRepositories() -> Void
 }
 
 class SearchRepositoriesViewModel {
@@ -32,38 +62,39 @@ class SearchRepositoriesViewModel {
     
     weak var delegate: SearchRepositoriesViewModelDelegate?
     
+    
+    // Public methods. Available for viewcontroller
+    
     func searchQuery(query: String?) -> Void {
         guard let query = query else {
             return
         }
         searchParams = SearchParametes()
-        repositoriesArray = [Repository]()
         searchParams.query = query
+        self.resetData()
         self.fetchData()
     }
     
-    
-    func order(order: String?) -> Void {
-        guard let order = order else {
-            return
-        }
-        searchParams.order = order
+    func handleSort(option: SortOptions) -> Void {
+        self.resetData()
+        searchParams.sort = option.getSortString()
+        searchParams.order = option.getOrderString()
+        searchParams.page = 1
+        self.delegate?.didSortRepositories()
+        self.fetchData()
     }
-    
-    
-    func sort(sortOption: String?) -> Void {
-        guard let sort = sortOption else {
-            return
-        }
-        searchParams.sort = sort
-    }
-    
     
     func loadMoreData() -> Void {
         if self.hasMoreItemsToFetch {
             searchParams.page += 1
             self.fetchData()
         }
+    }
+    
+    // Private methods. Available just for viewmodel
+    
+    private func resetData() -> Void {
+        repositoriesArray = [Repository]()
     }
     
     private func getSearchParametersAsDictionary() -> [String: Any] {
