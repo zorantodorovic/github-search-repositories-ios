@@ -1,5 +1,5 @@
 //
-//  RepositoryDetailsViewController.swift
+//  RepositoryViewController.swift
 //  GithubSearchRepositories
 //
 //  Created by Zoran Todorovic on 28/05/2017.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RepositoryDetailsViewController: UIViewController {
+class RepositoryViewController: UIViewController {
     
     let stackView = UIStackView()
     let userImageView = UIImageView()
@@ -23,9 +23,9 @@ class RepositoryDetailsViewController: UIViewController {
     let openprofileButton = UIButton()
     let openRepoButton = UIButton()
     
-    fileprivate var viewModel: RepositoryDetailsViewModel
+    fileprivate var viewModel: RepositoryViewModel
     
-    init(viewModel: RepositoryDetailsViewModel) {
+    init(viewModel: RepositoryViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -77,6 +77,7 @@ class RepositoryDetailsViewController: UIViewController {
         stackView.addArrangedSubview(openRepoButton)
         
         repoNameLabel.numberOfLines = 0
+        descLabel.numberOfLines = 0
         
         openprofileButton.setTitle("Open user profile", for: .normal)
         openprofileButton.setTitleColor(UIColor.blue, for: .normal)

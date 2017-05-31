@@ -1,5 +1,5 @@
 //
-//  RepositoryDetailsViewModel.swift
+//  RepositoryViewModel.swift
 //  GithubSearchRepositories
 //
 //  Created by Zoran Todorovic on 31/05/2017.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class RepositoryDetailsViewModel {
+class RepositoryViewModel {
     
     private var repository: Repository
     
@@ -82,7 +82,7 @@ class RepositoryDetailsViewModel {
 }
 
 
-extension RepositoryDetailsViewModel {
+extension RepositoryViewModel {
     
     func getFormattedDateString(dateString: String) -> String {
         if let date = dateString.getDateFromString() {
