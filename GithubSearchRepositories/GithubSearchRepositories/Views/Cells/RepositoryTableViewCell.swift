@@ -46,13 +46,13 @@ class RepositoryTableViewCell: UITableViewCell {
     }
     
     func bindModelToCell(repository: Repository) -> Void {
-        if let imageURL = repository.ownerThumbURLString {
+        if let imageURL = repository.owner.avatarURLString {
             let url = URL(string: imageURL)
             userImageView.kf.setImage(with: url)
         }
 
-        repoNameLabel.text = repository.name
-        statsLabel.text = "Stars: \(repository.numberOfStars ?? 0), Forks: \(repository.numberOfForks ?? 0), Watchers: \(repository.numberOfWatchers ?? 0)"
+        repoNameLabel.text = repository.repositoryDetails.name
+        statsLabel.text = "Stars: \(repository.repositoryDetails.numberOfStars ?? 0), Forks: \(repository.repositoryDetails.numberOfForks ?? 0), Watchers: \(repository.repositoryDetails.numberOfWatchers ?? 0)"
     }
     
     required init?(coder aDecoder: NSCoder) {

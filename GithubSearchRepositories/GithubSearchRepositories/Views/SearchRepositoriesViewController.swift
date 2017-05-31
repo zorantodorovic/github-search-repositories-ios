@@ -23,16 +23,20 @@ class SearchRepositoriesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.setupNavBar()
-        self.setupSearchBar()
-        self.setupTableView()
+        
+        self.setAllViews()
         viewModel.delegate = self
         searchBar.delegate = self
     }
     
-    private func setupNavBar() {
+    private func setAllViews() {
         view.backgroundColor = UIColor.white
+        self.setupNavBar()
+        self.setupSearchBar()
+        self.setupTableView()
+    }
+    
+    private func setupNavBar() {
         navigationItem.title = Constants.searchScreenNavBarTitle
     }
     
@@ -92,8 +96,8 @@ extension SearchRepositoriesViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedRepository = self.repositoriesArray[indexPath.row]
-        let detailsVC = RepositoryDetailsViewController()
-        detailsVC.repository = selectedRepository
+        let detailsVM = RepositoryDetailsViewModel(repository: selectedRepository)
+        let detailsVC = RepositoryDetailsViewController(viewModel: detailsVM)
         self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     

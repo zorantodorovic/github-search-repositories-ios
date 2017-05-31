@@ -23,7 +23,7 @@ class SearchRepositoriesViewModel {
     var query: String? = ""
     var sort: String? = ""
     var order: String? = ""
-    var perPage: Int? = 20
+    var perPage: Int? = 2
     
     weak var delegate: SearchRepositoriesViewModelDelegate?
     
@@ -69,19 +69,20 @@ class SearchRepositoriesViewModel {
     private func fetchData() -> Void {
         
         let searchParameters = self.getSearchParameters()
-        Alamofire.request(urlString, parameters: searchParameters).responseJSON { response in
+        Alamofire.request(urlString, parameters: searchParameters).responseJSON { [weak self] (response) in
             
             switch response.result {
             case .success:
                 if response.result.value != nil {
                     let swiftyJSON = JSON(response.result.value!)
-                    let reposArray = self.mapJSONToModel(json: swiftyJSON["items"])
-                    self.delegate?.didFetchRepositories(repositories: reposArray)
+                    if let reposArray = self?.mapJSONToModel(json: swiftyJSON["items"]) {
+                        self?.delegate?.didFetchRepositories(repositories: reposArray)
+                    }
                 }
                 break
             case .failure(let error):
                 print(error.localizedDescription)
-                self.delegate?.repositoryFetchFailed()
+                self?.delegate?.repositoryFetchFailed()
             }
         }
     }
@@ -91,7 +92,9 @@ class SearchRepositoriesViewModel {
         
         for (_, subJSON) in json {
             do {
-                let repo = try Repository(json: subJSON)
+                let details = try RepositoryDetails(json: subJSON)
+                let owner = try Owner(json: subJSON["owner"])
+                let repo = Repository(repositoryDetails: details, owner: owner)
                 repositoriesArray.append(repo)
             } catch let error {
                 print(error.localizedDescription)
